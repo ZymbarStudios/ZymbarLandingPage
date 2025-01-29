@@ -1,14 +1,18 @@
 import { GridContainer } from "@/components/GridContainer";
 import Header from "@/components/Header";
 import { SectionHero } from "@/components/SectionHero";
-import SectionTecSolutions from "@/components/SectionTecSolutions";
+import SectionPartners from "@/components/SectionPartners";
+import SectionReasons from "@/components/SectionReasons";
+import SectionTecExperiences from "@/components/SectionTecExperiences";
 
 export default function Home() {
   return (
-    <GridContainer >
+    <div className="flex flex-col gap-32">
       <Header />
       <SectionHero/>
-      <SectionTecSolutions/>
-    </GridContainer>
+      <SectionPartners/>
+      <SectionReasons/>
+      <SectionTecExperiences/>
+    </div>
   );
 }
