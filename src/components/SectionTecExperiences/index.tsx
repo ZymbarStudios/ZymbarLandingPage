@@ -5,7 +5,7 @@ import ItemTecSolution from "./ItemTecSolution";
 export default function SectionTecExperiences() {
     return (
         <section>
-            <GridContainer classname="flex flex-col items-center">
+            <GridContainer classname="flex flex-col items-center gap-8">
                 <h1 className="josefinSans font-bold text-5xl text-center tracking-wide leading-snug  w-3/6 mb-10">
                     Nossa Experiência
                 </h1>
