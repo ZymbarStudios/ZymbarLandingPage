@@ -6,12 +6,13 @@ interface ButtonProps {
     children: React.ReactNode;
     disabled?: boolean;
     classname?: string;
+    type?: "button" | "submit" | "reset";
 }
 
-export function TertiaryButton({ onClick, children, disabled = false, classname }: ButtonProps) {
+export function TertiaryButton({ onClick, children, disabled = false, classname, type }: ButtonProps) {
 
     return (
-        <button onClick={onClick} disabled={disabled} className={twMerge("btn border bg-white border-white text-black-1 px-8 py-2  rounded-md", classname)}>
+        <button onClick={onClick} disabled={disabled} type={type} className={twMerge("btn border bg-white border-white text-black-1 px-8 py-2  rounded-md", classname)}>
             {children}
         </button>
     );
