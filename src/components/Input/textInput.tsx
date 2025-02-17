@@ -1,13 +1,10 @@
+import { InputHTMLAttributes } from "react";
 
 interface InputProps {
     label: string;
-    placeholder?: string;
-    type?: string;
-    value?: string;
-    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export default function Input({ label, placeholder, type, value, onChange }: InputProps) {
+export default function Input({ label, ...rest }: InputProps & InputHTMLAttributes<HTMLInputElement>) {
     return (
         <div className="w-full h-12 flex flex-col justify-end relative">
             <div className="absolute bg-black-1 bottom-8 left-2 px-1">
@@ -15,7 +12,7 @@ export default function Input({ label, placeholder, type, value, onChange }: Inp
                     {label}
                 </p>
             </div>
-            <input placeholder={placeholder} type={type} value={value} onChange={onChange} className='block w-full p-2.5 text-sm text-white bg-transparent border-2 border-white rounded-md focus:outline-none focus:ring-0 peer' />
+            <input {...rest} className='block w-full p-2.5 text-sm text-white bg-transparent border-2 border-white rounded-md focus:outline-none focus:ring-0 peer' />
         </div>
     );
 }

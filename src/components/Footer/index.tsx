@@ -4,9 +4,59 @@ import Image from "next/image";
 import Input from "../Input/textInput";
 import TextArea from "../Input/textArea";
 import { TertiaryButton } from "../Buttons/tertiaryButton";
+import { useState } from "react";
 
 
 export default function Footer() {
+
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [description, setDescription] = useState('');
+
+    async function handleEmail(e: React.FormEvent) {
+        e.preventDefault();
+
+        if (!email || !description) {
+            return alert('Preencha todos os campos');
+        }
+
+        sendEmailToZymbar();
+        sendEmailToClient();
+    }
+
+    async function sendEmailToZymbar() {
+        try {
+            const response = await fetch('/api/sendEmailToZymbar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, description }),
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                alert('Email sent successfully');
+            } else {
+                alert(`Error: ${data.message}`);
+            }
+        } catch (error) {
+            alert('Error sending email');
+        }
+    }
+
+    async function sendEmailToClient() {
+        await fetch('/api/sendEmailToClient', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ name, description, email }),
+        });
+
+    }
+
+
     return (
         <footer className="flex flex-row justify-around bg-black-1 text-white p-20">
             <div className="flex flex-col items-start gap-5 w-2/6">
@@ -20,21 +70,30 @@ export default function Footer() {
                     © 2021 Zymbar
                 </span>
             </div>
-            <form className="w-2/6 flex flex-col items-start gap-5">
-            <Input 
-                    label="Email" 
-                    placeholder="Seu endereço de e-mail" 
-                    type="text" 
-                    value="" 
-                    onChange={(e) => {}} 
+            <form className="w-2/6 flex flex-col items-start gap-5" onSubmit={handleEmail}>
+                <div className="flex flex-row justify-between gap-2 w-full">
+                    <Input
+                        label="Nome"
+                        placeholder="Insira seu nome ou da sua empresa"
+                        type="text"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                    />
+                    <Input
+                        label="Email"
+                        placeholder="Seu endereço de e-mail"
+                        type="text"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                </div>
+                <TextArea
+                    label="Descrição"
+                    placeholder="Descreva sua demanda"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
                 />
-                <TextArea 
-                    label="Descrição" 
-                    placeholder="Descreva sua demanda" 
-                    value="" 
-                    onChange={(e) => {}} 
-                />
-                <TertiaryButton onClick={()=>{}}>Enviar</TertiaryButton>
+                <TertiaryButton type="submit" onClick={() => { }}>Enviar</TertiaryButton>
             </form>
         </footer>
     );
