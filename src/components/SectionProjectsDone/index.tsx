@@ -1,9 +1,18 @@
+'use client'
+import { useLayoutEffect } from "react";
 import { GridContainer } from "../GridContainer";
 import ItemProjectDone from "./ItemProjectDone";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 export default function SectionProjectsDone() {
+
+    useLayoutEffect(() => {
+        AOS.init();
+    }, []);
+
     return (
-        <section>
+        <section data-aos="fade-right" data-aos-duration="500" data-aos-delay="300">
             <GridContainer classname="flex flex-row items-center">
                 <h1 className="josefinSans font-bold text-5xl text-center tracking-wide leading-snug  w-3/6 mb-10">
                     Projetos Realizados

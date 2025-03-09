@@ -1,10 +1,18 @@
-
+'use client'
+import { useLayoutEffect } from "react";
 import { GridContainer } from "../GridContainer";
 import ItemTecSolution from "./ItemTecSolution";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 export default function SectionTecExperiences() {
+
+    useLayoutEffect(() => {
+        AOS.init();
+    }, []);
+
     return (
-        <section>
+        <section data-aos="fade-right" data-aos-duration="500" data-aos-delay="300">
             <GridContainer classname="flex flex-col items-center gap-8">
                 <h1 className="josefinSans font-bold text-5xl text-center tracking-wide leading-snug  w-3/6 mb-10">
                     Nossa Experiência

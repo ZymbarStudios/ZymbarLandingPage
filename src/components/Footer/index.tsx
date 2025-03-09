@@ -4,14 +4,29 @@ import Image from "next/image";
 import Input from "../Input/textInput";
 import TextArea from "../Input/textArea";
 import { TertiaryButton } from "../Buttons/tertiaryButton";
-import { useState } from "react";
+import { useLayoutEffect, useState } from "react";
+import  LoadingModal  from "../Modals/Loading";
+import { Success } from "../Modals/Success";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
+interface FooterProps {
+    footerRef: React.RefObject<HTMLDivElement | null>;
+}
 
 
-export default function Footer() {
+export default function Footer({footerRef}: FooterProps) {
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [description, setDescription] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [isShowingSuccessModal, setIsShowingSuccessModal] = useState(false);
+
+
+    useLayoutEffect(() => { 
+        AOS.init();
+    }, []);
 
     async function handleEmail(e: React.FormEvent) {
         e.preventDefault();
@@ -20,32 +35,25 @@ export default function Footer() {
             return alert('Preencha todos os campos');
         }
 
-        sendEmailToZymbar();
-        sendEmailToClient();
-    }
+        setIsLoading(true);
 
-    async function sendEmailToZymbar() {
-        try {
-            const response = await fetch('/api/sendEmailToZymbar', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, description }),
-            });
+        const response = await fetch('/api/sendEmailToZymbar', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, description }),
+        });
 
-            const data = await response.json();
-            if (response.ok) {
-                alert('Email sent successfully');
-            } else {
-                alert(`Error: ${data.message}`);
-            }
-        } catch (error) {
-            alert('Error sending email');
+        const data = await response.json();
+        if (response.ok) {
+            setIsLoading(false);
+            setIsShowingSuccessModal(true);
+        } else {
+            setIsLoading(false);
+            alert(`Error: ${data.message}`);
         }
-    }
 
-    async function sendEmailToClient() {
         await fetch('/api/sendEmailToClient', {
             method: 'POST',
             headers: {
@@ -54,11 +62,26 @@ export default function Footer() {
             body: JSON.stringify({ name, description, email }),
         });
 
+        setIsLoading(false);
     }
 
 
     return (
-        <footer className="flex flex-row justify-around bg-black-1 text-white p-20">
+        <footer 
+            className="flex flex-row justify-around bg-black-1 text-white p-20" data-aos="fade-up" 
+            data-aos-duration="500" 
+            data-aos-delay="200"
+            ref={footerRef}
+            >
+            <LoadingModal isLoading={isLoading}/>
+            {
+                isShowingSuccessModal && (
+                    <Success 
+                    title="Email Enviado!" 
+                    message="Tudo pronto, seu email foi enviado. Agora, basta aguardar o nosso retorno em até 48 horas." 
+                    onOk={() => setIsShowingSuccessModal(false)}/>
+                )
+            }
             <div className="flex flex-col items-start gap-5 w-2/6">
                 <h1 className="josefinSans text-4xl font-bold">
                     Entre em contato! <br /> Te respondemos em até 48 horas.

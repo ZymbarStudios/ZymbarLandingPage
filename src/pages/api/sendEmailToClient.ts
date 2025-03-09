@@ -23,7 +23,7 @@ export default async function sendEmailToClient(req: NextApiRequest, res: NextAp
                 from: process.env.EMAIL_USER,
                 to: email,
                 subject: "Confirmação de Contato",
-                html: emailTemplate
+                html: emailTemplate({name, description})
             });
 
             res.status(200).json({ message: 'Email sent successfully' });

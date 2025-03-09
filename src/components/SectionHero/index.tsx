@@ -1,11 +1,24 @@
 'use client';
+import { useLayoutEffect } from "react";
 import { PrimaryButton } from "../Buttons/primaryButton";
 import { SecondaryButton } from "../Buttons/secondaryButton";
 import { GridContainer } from "../GridContainer";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
-export function SectionHero() {
+interface SectionHeroProps {
+    onGetContact: () => void;
+}
+
+
+export function SectionHero({onGetContact}: SectionHeroProps) {
+
+    useLayoutEffect(() => {
+            AOS.init();
+        }, []);
+        
     return (
-        <section>
+        <section data-aos="fade-up" data-aos-duration="500" data-aos-delay="300">
             <GridContainer classname="flex flex-col items-center">
                 <h1 className="josefinSans font-bold text-5xl text-center tracking-wide leading-snug  w-3/6 mb-10">
                     Criando soluções tecnológicas que impulsionam o seu negócio, por um preço justo.
@@ -18,7 +31,7 @@ export function SectionHero() {
                     <SecondaryButton onClick={() => console.log('click')}>
                         Veja nosso trabalho
                     </SecondaryButton>
-                    <PrimaryButton onClick={() => console.log('click')}>
+                    <PrimaryButton onClick={onGetContact}>
                         Entre em contato
                     </PrimaryButton>
                 </div>

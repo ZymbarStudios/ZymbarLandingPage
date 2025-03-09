@@ -1,11 +1,23 @@
 'use client';
+import { useLayoutEffect } from "react";
 import { PrimaryButton } from "../Buttons/primaryButton";
 import { GridContainer } from "../GridContainer";
 import ItemReason from "./ItemReason";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
-export default function SectionReasons() {
+interface SectionReasonsProps {
+    onGetContact: () => void;
+}
+
+export default function SectionReasons({onGetContact}: SectionReasonsProps) {
+
+    useLayoutEffect(() => {
+        AOS.init();
+    }, []);
+
     return (
-        <section>
+        <section data-aos="fade-right" data-aos-duration="500" data-aos-delay="300">
             <GridContainer classname="flex flex-col items-center">
                 <h1 className="josefinSans font-bold text-5xl text-center tracking-wide leading-snug  w-3/6 mb-10">
                     Por que fazer parceria com a Zymbar?
@@ -27,7 +39,7 @@ export default function SectionReasons() {
                         description="Tecnologia projetada para crescer com você."
                     />
                 </div>
-                <PrimaryButton onClick={() => console.log('click')}  classname="mt-20"> 
+                <PrimaryButton onClick={onGetContact} classname="mt-20">
                     Contatar Já!
                 </PrimaryButton>
             </GridContainer>

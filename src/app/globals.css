@@ -12,4 +12,8 @@
 .josefinSans {
   font-family: var(--font-josefin-sans);
 }
+
+html {
+  scroll-behavior: smooth;
+}
     
