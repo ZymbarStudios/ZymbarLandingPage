@@ -1,12 +1,12 @@
 'use client'
 
 import Image from "next/image";
-import Input from "../Input/textInput";
-import TextArea from "../Input/textArea";
-import { TertiaryButton } from "../Buttons/tertiaryButton";
+import Input from "../../components/Input/textInput";
+import TextArea from "../../components/Input/textArea";
+import { TertiaryButton } from '@/components/Buttons/tertiaryButton';
 import { useLayoutEffect, useState } from "react";
-import  LoadingModal  from "../Modals/Loading";
-import { Success } from "../Modals/Success";
+import LoadingModal from "../../components/Modals/Loading";
+import { Success } from "@/components/Modals/Success";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -15,7 +15,7 @@ interface FooterProps {
 }
 
 
-export default function Footer({footerRef}: FooterProps) {
+export default function Footer({ footerRef }: FooterProps) {
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -24,8 +24,8 @@ export default function Footer({footerRef}: FooterProps) {
     const [isShowingSuccessModal, setIsShowingSuccessModal] = useState(false);
 
 
-    useLayoutEffect(() => { 
-        AOS.init();
+    useLayoutEffect(() => {
+        AOS.init({once: true});
     }, []);
 
     async function handleEmail(e: React.FormEvent) {
@@ -67,19 +67,19 @@ export default function Footer({footerRef}: FooterProps) {
 
 
     return (
-        <footer 
-            className="flex flex-row justify-around bg-black-1 text-white p-20" data-aos="fade-up" 
-            data-aos-duration="500" 
+        <footer
+            className="flex flex-row justify-around bg-black-1 text-white p-20" data-aos="fade-up"
+            data-aos-duration="500"
             data-aos-delay="200"
             ref={footerRef}
-            >
-            <LoadingModal isLoading={isLoading}/>
+        >
+            <LoadingModal isLoading={isLoading} />
             {
                 isShowingSuccessModal && (
-                    <Success 
-                    title="Email Enviado!" 
-                    message="Tudo pronto, seu email foi enviado. Agora, basta aguardar o nosso retorno em até 48 horas." 
-                    onOk={() => setIsShowingSuccessModal(false)}/>
+                    <Success
+                        title="Email Enviado!"
+                        message="Tudo pronto, seu email foi enviado. Agora, basta aguardar o nosso retorno em até 48 horas."
+                        onOk={() => setIsShowingSuccessModal(false)} />
                 )
             }
             <div className="flex flex-col items-start gap-5 w-2/6">

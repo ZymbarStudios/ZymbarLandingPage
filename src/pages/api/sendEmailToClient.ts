@@ -1,6 +1,6 @@
 
 import { NextApiRequest, NextApiResponse } from 'next';
-import { emailTemplate } from '../../emailTemplate';
+import { emailTemplate } from '../../components/EmailTemplate/emailTemplate';
 import nodemailer from 'nodemailer';
 
 export default async function sendEmailToClient(req: NextApiRequest, res: NextApiResponse) {

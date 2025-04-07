@@ -1,23 +1,24 @@
 'use client'
 import { useLayoutEffect } from "react";
-import { GridContainer } from "../GridContainer";
-import ItemProjectDone from "./ItemProjectDone";
+import { GridContainer } from "../../components/GridContainer";
+import ItemProjectDone from "../../components/ItemProjectDone";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { animationDelay, animationDuration, animationFadeRightType } from "@/utils";
 
 export default function SectionProjectsDone() {
 
     useLayoutEffect(() => {
-        AOS.init();
+        AOS.init({once: true});
     }, []);
 
     return (
-        <section data-aos="fade-right" data-aos-duration="500" data-aos-delay="300">
-            <GridContainer classname="flex flex-row items-center">
-                <h1 className="josefinSans font-bold text-5xl text-center tracking-wide leading-snug  w-3/6 mb-10">
+        <section data-aos={animationFadeRightType} data-aos-duration={animationDuration} data-aos-delay={animationDelay}>
+            <GridContainer classname="flex flex-row justify-around items-center w-5/6">
+                <h1 className="josefinSans font-bold text-5xl text-center tracking-wide leading-snug">
                     Projetos Realizados
                 </h1>
-                <div className="flex flex-col items-center gap-10 ">
+                <div className="flex flex-col items-center gap-10 max-w-lg">
                     <ItemProjectDone
                         title="ERP na WEB"
                         description="Funcionalidades: ordens de serviço, gestão de colaboradores, gestão operacional, entre outros..."

@@ -17,8 +17,9 @@ export default {
         'gray-3': '#C1C1C1',
         'gray-4': '#9195A3',
       },
-      maxWidth: {
-        'container': '100rem',
+      screens: {
+        fullHd: '2xl',  
+        hd: 'xl',
       }
     },
   },

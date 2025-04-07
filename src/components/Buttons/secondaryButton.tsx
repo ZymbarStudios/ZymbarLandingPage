@@ -11,7 +11,7 @@ interface ButtonProps {
 
 export function SecondaryButton({ onClick, children, disabled = false, classname }: ButtonProps) {
     return (
-        <button onClick={onClick} disabled={disabled} className={twMerge("btn border border-black-3 text-black-3 px-10 py-4  rounded-md", classname)}>
+        <button onClick={onClick} disabled={disabled} className={twMerge("btn border border-black-3 text-black-3 px-5 py-3 rounded-md", classname)}>
             {children}
         </button>
     );

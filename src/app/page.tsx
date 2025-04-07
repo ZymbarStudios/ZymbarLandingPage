@@ -1,11 +1,11 @@
 'use client';
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-import { SectionHero } from "@/components/SectionHero";
-import SectionPartners from "@/components/SectionPartners";
-import SectionProjectsDone from "@/components/SectionProjectsDone";
-import SectionReasons from "@/components/SectionReasons";
-import SectionTecExperiences from "@/components/SectionTecExperiences";
+import Footer from "@/app/Footer";
+import Header from "@/app/Header";
+import { SectionHero } from "@/app/SectionHero";
+import SectionPartners from "@/app/SectionPartners";
+import SectionProjectsDone from "@/app/SectionProjectsDone";
+import SectionReasons from "@/app/SectionReasons";
+import SectionTecExperiences from "@/app/SectionTecExperiences";
 import { useRef } from "react";
 
 export default function Home({stars}: {stars: number}) {  
