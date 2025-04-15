@@ -7,7 +7,7 @@ interface ItemProjectDoneProps {
 
 export default function SectionProjectsDone({title, description}: ItemProjectDoneProps) {
     return (
-        <div className="flex flex-col justify-center items-center gap-4 border-b-2 border-gray-3 pb-6 w-full">
+        <div className="flex flex-col justify-center items-center gap-4 pb-6 w-full">
             <h2 className="josefinSans font-bold text-black-3">
                 {title}
             </h2>

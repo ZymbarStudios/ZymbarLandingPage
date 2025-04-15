@@ -7,7 +7,7 @@ interface GridContainerProps {
 
 export function GridContainer({children, classname}: GridContainerProps) {
     return (
-        <div className={twMerge("w-full max-w-container mx-auto px-3", classname)}>
+        <div className={twMerge("w-full px-9 xl:px-3 2xl:px-3", classname)}>
             {children}
         </div>
     )

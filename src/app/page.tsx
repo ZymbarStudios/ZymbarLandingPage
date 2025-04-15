@@ -17,7 +17,7 @@ export default function Home({stars}: {stars: number}) {
   };
 
   return (
-    <div className="flex flex-col gap-16">
+    <div className="flex flex-col xl:gap-16 2xl:gap-16 gap-8">
       <Header onClick={handleScrollToFooter}/>
       <SectionHero onGetContact={handleScrollToFooter}/>
       <SectionPartners/>

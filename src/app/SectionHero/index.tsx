@@ -20,37 +20,23 @@ export function SectionHero({ onGetContact }: SectionHeroProps) {
 
     return (
         <section data-aos={animationFadeUpType} data-aos-duration={animationDuration} data-aos-delay={animationDelay}>
-            <GridContainer classname="flex flex-col items-center gap-7">
-                <h1 className="josefinSans font-bold text-5xl text-center tracking-wide leading-snug 2xl:w-3/6 xl:w-4/6">
-                    Criando soluções tecnológicas que impulsionam o seu negócio, por um preço justo.
+            <GridContainer classname="flex flex-col items-center gap-5 2xl:gap-7 xl:gap-7">
+                <h1 className="josefinSans font-bold text-[2rem] text-center tracking-wide leading-snug 2xl:w-3/6 2xl:text-5xl xl:w-4/6 xl:text-5xl">
+                    Criando soluções tecnológicas que impulsionam o seu negócio.
                 </h1>
-                <p className="text-center text-gray-1 w-2/6 text-md">
+                <p className="text-center text-gray-1 px-4 2xl:w-2/6 xl:w-2/6 text-sm 2xl:text-md xl:text-md">
                     Pensamos em você, pequeno e médio empreendedor, para desenvolver o que falta para melhor sua estruturação e crescimento.
                 </p>
 
                 <div className="flex flex-row gap-6">
-                    <SecondaryButton onClick={() => console.log('click')}>
+                    <SecondaryButton onClick={() => console.log('click')} classname="hidden xd:block lg:block xl:block 2xl:block">
                         Veja nosso trabalho
                     </SecondaryButton>
                     <PrimaryButton onClick={onGetContact}>
-                        Entre em contato
+                        Vamos construir algo ótimo!
                     </PrimaryButton>
                 </div>
             </GridContainer>
         </section>
     );
 }
-
-const h1Style = `
-    josefinSans
-    font-bold 
-    text-5xl 
-    text-center 
-
-    sm:text-6xl
-
-    tracking-wide 
-    leading-snug 
-    w-3/6 
-    mb-10
-`;

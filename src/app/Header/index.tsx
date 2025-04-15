@@ -4,8 +4,23 @@ import { PrimaryButton } from "../../components/Buttons/primaryButton";
 import { GridContainer } from "../../components/GridContainer";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { useLayoutEffect, useRef } from "react";
-import { TbMenu } from "react-icons/tb";
+import { useLayoutEffect } from "react";
+import { TbMenu2 } from "react-icons/tb";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuGroup,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuPortal,
+    DropdownMenuSeparator,
+    DropdownMenuShortcut,
+    DropdownMenuSub,
+    DropdownMenuSubContent,
+    DropdownMenuSubTrigger,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Button } from "@/components/ui/button";
 
 interface HeaderProps {
     onClick: () => void;
@@ -18,8 +33,8 @@ export default function Header({ onClick }: HeaderProps) {
     }, []);
 
     return (
-        <GridContainer
-            classname="flex justify-between flex-row items-center 2xl:px-8"
+        <div
+            className="flex justify-between flex-row items-center px-4 2xl:px-8"
             data-aos="fade-down"
             data-aos-duration="500"
             data-aos-delay="300">
@@ -33,15 +48,26 @@ export default function Header({ onClick }: HeaderProps) {
                 />
             </div>
 
-            <PrimaryButton onClick={onClick} classname="text-sm py-3 px-4 ">
+            <PrimaryButton onClick={onClick} classname="text-sm py-3 px-4 hidden xd:block lg:block xl:block 2xl:block">
                 Fale Conosco Hoje
             </PrimaryButton>
 
-            <div>
-                <TbMenu className="size-5 2xl:hidden xl:"/>
+            <div className="lg:hidden xl:hidden 2xl:hidden pr-5">
+
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="outline"><TbMenu2 className="size-7" /></Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-56">
+                        <DropdownMenuItem onClick={onClick}>
+                            Entre em contato
+                        </DropdownMenuItem>
+                        <DropdownMenuItem>
+                            Portifólio
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
             </div>
-        </GridContainer>
+        </div>
     );
 };
-
-const imageStyle = ` bg-yellow-500 relative top-0 w-32 h-24 sm:w-auto sm:h-84`;
