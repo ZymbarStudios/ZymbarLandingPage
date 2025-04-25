@@ -51,23 +51,6 @@ export default function Header({ onClick }: HeaderProps) {
             <PrimaryButton onClick={onClick} classname="text-sm py-3 px-4 hidden xd:block lg:block xl:block 2xl:block">
                 Fale Conosco Hoje
             </PrimaryButton>
-
-            <div className="lg:hidden xl:hidden 2xl:hidden pr-5">
-
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="outline"><TbMenu2 className="size-7" /></Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-56">
-                        <DropdownMenuItem onClick={onClick}>
-                            Entre em contato
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                            Portifólio
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            </div>
         </div>
     );
 };
