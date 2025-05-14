@@ -62,6 +62,7 @@ export default function SectionTecExperiences() {
                     {
                         items.map((item, index) => (
                             <ItemTecSolution
+                                key={index}
                                 title={item.title}
                                 description={item.description}
                                 image={item.image}
@@ -89,10 +90,12 @@ export default function SectionTecExperiences() {
                         <CarouselPrevious />
                         <CarouselNext />
                     </Carousel>
-                    <div className="flex gap-1" key={currentItem}>
+                    <div className="flex gap-1">
                         {
                             items.map((item, index) => (
-                                currentItem == index ? <TbCircleFilled className="size-2 text-white" /> : <TbCircle className="size-2 text-white" />
+                                currentItem == index ? 
+                                <TbCircleFilled key={index} className="size-2 text-white" /> : 
+                                <TbCircle key={index} className="size-2 text-white" />
                             ))
                         }
                     </div>
