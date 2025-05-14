@@ -2,6 +2,13 @@
 
 A modern web application built with Next.js, React, and Tailwind CSS.
 
+<div>
+  <p>
+    <img src="https://github.com/user-attachments/assets/5c21aeea-4ac9-4880-97b7-aa6deefc9543" width="200" alt="Zymbar Mobile" />
+    <img src="https://github.com/user-attachments/assets/6ed9ecab-6844-47f2-b7c2-fec817df0770" width="400" alt="Zymbar Desktop" />
+  </p>
+</div>
+
 ## 🚀 Features
 
 - Responsive design with modern UI components
