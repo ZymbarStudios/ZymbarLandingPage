@@ -30,7 +30,12 @@ export default function SectionTecExperiences() {
         {
             title: "Apps Web",
             description: "Sistema que executa em páginas web. Podendo ser utilizados em dispositivos mobile ou computador.",
-            image: "/app_web.svg"
+            image: "/app_desktop.svg"
+        },
+        {
+            title: "Gestão Tecnológica",
+            description: "Contato direto para trazer previsibilidade , transparência e acompanhamento geral.",
+            image: "/app_management.svg"
         }
     ];
 
@@ -58,7 +63,7 @@ export default function SectionTecExperiences() {
                 <h1 className="josefinSans font-bold md:text-3xl lg:text-5xl xl:text-5xl 2xl:text-5xl text-center text-2xl text-white tracking-wide leading-snug md:w-3/6 lg:w-3/6 xl:w-3/6 2xl:w-3/6">
                     Nossa Experiência
                 </h1>
-                <div className="hidden md:flex lg:flex xl:flex 2xl:flex md:flex-row lg:flex-row xl:flex-row 2xl:flex-row justify-center py-12 gap-6 md:gap-20 lg:gap-20 xl:gap-20 2xl:gap-40">
+                <div className="hidden md:hidden lg:flex xl:flex 2xl:flex md:flex-row lg:flex-row xl:flex-row 2xl:flex-row justify-center py-12 gap-6 md:gap-20 lg:gap-20 xl:gap-20 2xl:gap-40">
                     {
                         items.map((item, index) => (
                             <ItemTecSolution
@@ -70,7 +75,7 @@ export default function SectionTecExperiences() {
                         ))
                     }
                 </div>
-                <div className="md:hidden lg:hidden xl:hidden 2xl:hidden flex flex-col items-center gap-3">
+                <div className=" lg:hidden xl:hidden 2xl:hidden flex flex-col items-center gap-3">
                     <Carousel setApi={setApi} className="w-60">
                         <CarouselContent className="">
                             {
