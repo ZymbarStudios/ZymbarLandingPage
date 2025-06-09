@@ -74,15 +74,6 @@ export default function Footer({ footerRef }: FooterProps) {
                 data-aos-delay="200"
                 ref={footerRef}
             >
-                <LoadingModal isLoading={isLoading} />
-                {
-                    isShowingSuccessModal && (
-                        <Success
-                            title="Email Enviado!"
-                            message="Tudo pronto, seu email foi enviado. Agora, basta aguardar o nosso retorno em até 48 horas."
-                            onOk={() => setIsShowingSuccessModal(false)} />
-                    )
-                }
                 <h1 className="josefinSans text-2xl font-bold">
                     Entre em contato! Te respondemos em até 48 horas.
                 </h1>
@@ -144,7 +135,7 @@ export default function Footer({ footerRef }: FooterProps) {
                         © 2021 Zymbar
                     </span>
                 </div>
-                <form className="w-2/6 flex flex-col items-start gap-5" onSubmit={handleEmail}>
+                <form className="w-2/6 flex flex-col items-start gap-2" onSubmit={handleEmail}>
                     <div className="flex flex-row justify-between gap-2 w-full">
                         <Input
                             label="Nome"

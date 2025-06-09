@@ -6,9 +6,9 @@ interface TextAreaProps {
 
 export default function TextArea({ label, ...rest }: TextAreaProps & TextareaHTMLAttributes<HTMLTextAreaElement>) {
     return (
-        <div className="w-full flex flex-col justify-end relative">
-            <div className="absolute bg-black-2 -top-3 left-2 px-1">
-                <p className="text-base">
+        <div className="w-full flex flex-col justify-end">
+            <div className="px-1 py-1">
+                <p className="text-base text-white">
                     {label}
                 </p>
             </div>
