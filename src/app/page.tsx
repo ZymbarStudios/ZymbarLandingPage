@@ -8,7 +8,7 @@ import SectionReasons from "@/app/SectionReasons";
 import SectionTecExperiences from "@/app/SectionTecExperiences";
 import { useRef } from "react";
 
-export default function Home({ stars }: { stars: number }) {
+export default function Home() {
 
   const footerRef = useRef<HTMLDivElement | null>(null);
 
