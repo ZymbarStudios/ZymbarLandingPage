@@ -20,7 +20,7 @@ export default async function sendEmailToClient(req: NextApiRequest, res: NextAp
 
         try{
             await sender.sendMail({
-                from: process.env.EMAIL_USER,
+                from: 'Zymbar <zymbar76@gmail.com>',
                 to: email,
                 subject: "Confirmação de Contato",
                 html: emailTemplate({name, description})

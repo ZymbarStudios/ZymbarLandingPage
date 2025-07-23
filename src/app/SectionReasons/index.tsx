@@ -5,7 +5,7 @@ import { GridContainer } from "../../components/GridContainer";
 import ItemReason from "../../components/ItemReason";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { animationDelay, animationDuration, animationFadeRightType } from "@/utils";
+import { animationDelay, animationDuration, animationFadeRightType } from "@/lib/utils";
 
 interface SectionReasonsProps {
     onGetContact: () => void;
@@ -23,7 +23,7 @@ export default function SectionReasons({onGetContact}: SectionReasonsProps) {
                 <h1 className="josefinSans font-bold text-center tracking-wide leading-snug 2xl:mb-10 xl:mb-10 text-2xl 2xl:w-3/6 2xl:text-5xl xl:w-4/6 xl:text-5xl">
                     Por que fazer parceria com a Zymbar?
                 </h1>
-                <p className="text-center text-gray-1 px-6 2xl:w-4/6 xl:w-4/6 text-sm 2xl:text-md xl:text-md">
+                <p className="text-center text-gray-1 px-6 2xl:w-4/6 xl:w-4/6 text-sm 2xl:text-lg xl:text-lg">
                     Com mais de 10 anos de experiência, não apenas criamos software, mas também criamos parcerias duradouras. Nós trabalhamos com você para criar soluções inovadoras e de alta qualidade que atendam às suas necessidades exclusivas e impulsionem o sucesso do seu negócio.
                 </p>
                 <div className="flex flex-col gap-12 border-b border-yellow-50 2xl:flex-row xl:flex-row 2xl:gap-40 xl:gap-40 2xl:mt-20 xl:mt-20">

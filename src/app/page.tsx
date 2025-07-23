@@ -10,21 +10,34 @@ import { useRef } from "react";
 
 export default function Home() {
 
-  const footerRef = useRef<HTMLDivElement | null>(null);
+  const mobileFooterRef = useRef<HTMLDivElement | null>(null);
+  const desktopFooterRef = useRef<HTMLDivElement | null>(null);
+  const projectsRef = useRef<HTMLDivElement | null>(null);
 
   const handleScrollToFooter = () => {
-    footerRef.current?.scrollIntoView({ behavior: "smooth" });
+    const mobileFooter = mobileFooterRef.current;
+    const desktopFooter = desktopFooterRef.current;
+    
+    if (mobileFooter && window.getComputedStyle(mobileFooter).display !== 'none') {
+      mobileFooter.scrollIntoView({ behavior: "smooth" });
+    } else if (desktopFooter && window.getComputedStyle(desktopFooter).display !== 'none') {
+      desktopFooter.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleScrollToProjects = () => {
+    projectsRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <div className="flex flex-col xl:gap-16 2xl:gap-16 gap-8">
       <Header onClick={handleScrollToFooter} />
-      <SectionHero onGetContact={handleScrollToFooter} />
+      <SectionHero onGetContact={handleScrollToFooter} onSeeProjects={handleScrollToProjects} />
       <SectionPartners />
       <SectionReasons onGetContact={handleScrollToFooter} />
       <SectionTecExperiences />
-      <SectionProjectsDone />
-      <Footer footerRef={footerRef} />
+      <SectionProjectsDone onGetContact={handleScrollToFooter} projectsRef={projectsRef}/>
+      <Footer mobileFooterRef={mobileFooterRef} desktopFooterRef={desktopFooterRef} />
     </div>
   );
 }

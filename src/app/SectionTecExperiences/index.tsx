@@ -1,10 +1,10 @@
 'use client'
-import { useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useState, useEffect, useCallback, useRef } from "react";
 import { GridContainer } from "../../components/GridContainer";
 import ItemTecSolution from "../../components/ItemTecSolution";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { animationDelay, animationDuration, animationFadeRightType } from "@/utils";
+import { animationDelay, animationDuration, animationFadeRightType } from "@/lib/utils";
 import {
     Carousel,
     CarouselApi,
@@ -12,50 +12,149 @@ import {
     CarouselItem,
     CarouselNext,
     CarouselPrevious,
-} from "@/components/ui/carousel"
+} from "@/components/Carrousel"
 import { TbCircle, TbCircleFilled } from "react-icons/tb";
+import { items } from "@/data/tec-items";
 
 export default function SectionTecExperiences() {
+    const [currentItem, setCurrentItem] = useState(0);
+    const [api, setApi] = useState<CarouselApi | null>(null);
+    const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+    const [isCarouselVisible, setIsCarouselVisible] = useState(false);
+    const intervalRef = useRef<NodeJS.Timeout | null>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const isAutoScrollingRef = useRef(false);
+    const pauseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+    const AUTOPLAY_DELAY = 4000; // 4 seconds
 
     useLayoutEffect(() => {
         AOS.init({ once: true });
     }, []);
 
-    const items = [
-        {
-            title: "Apps Mobile",
-            description: "Para empresas que precisam de um app para aparelhos móveis como : celulares e tablets.",
-            image: "/app_mobile.svg"
-        },
-        {
-            title: "Apps Web",
-            description: "Sistema que executa em páginas web. Podendo ser utilizados em dispositivos mobile ou computador.",
-            image: "/app_desktop.svg"
-        },
-        {
-            title: "Gestão Tecnológica",
-            description: "Contato direto para trazer previsibilidade , transparência e acompanhamento geral.",
-            image: "/app_management.svg"
-        }
-    ];
+    // Check if carousel should be visible based on screen size
+    useEffect(() => {
+        const checkScreenSize = () => {
+            // Carousel is visible on lg:hidden (< 1024px)
+            const shouldShowCarousel = window.innerWidth < 1024;
+            setIsCarouselVisible(shouldShowCarousel);
+        };
 
-    const [currentItem, setCurrentItem] = useState(0);
-    const [api, setApi] = useState<CarouselApi | null>(null);
+        checkScreenSize();
+        window.addEventListener('resize', checkScreenSize);
+
+        return () => {
+            window.removeEventListener('resize', checkScreenSize);
+        };
+    }, []);
+
+    const startAutoPlay = useCallback(() => {
+        if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+        }
+        
+        // Only start auto play if carousel is visible and auto play is enabled
+        if (isAutoPlaying && api && isCarouselVisible) {
+            intervalRef.current = setInterval(() => {
+                isAutoScrollingRef.current = true;
+                api.scrollNext();
+            }, AUTOPLAY_DELAY);
+        }
+    }, [api, isAutoPlaying, isCarouselVisible]);
+
+    const stopAutoPlay = useCallback(() => {
+        if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+        }
+        if (pauseTimeoutRef.current) {
+            clearTimeout(pauseTimeoutRef.current);
+            pauseTimeoutRef.current = null;
+        }
+    }, []);
+
+    const pauseAutoPlayTemporarily = useCallback((duration: number = 3000) => {
+        setIsAutoPlaying(false);
+        if (pauseTimeoutRef.current) {
+            clearTimeout(pauseTimeoutRef.current);
+        }
+        pauseTimeoutRef.current = setTimeout(() => {
+            setIsAutoPlaying(true);
+        }, duration);
+    }, []);
 
     useLayoutEffect(() => {
-        if (!api) return;
+        if (!api || !isCarouselVisible) return;
 
         const handleSelect = () => {
             const selected = api.selectedScrollSnap();
             setCurrentItem(selected);
+            
+            // If this wasn't triggered by autoplay, pause autoplay temporarily
+            if (!isAutoScrollingRef.current && isAutoPlaying) {
+                pauseAutoPlayTemporarily(3000);
+            }
+            
+            // Reset the auto-scrolling flag
+            isAutoScrollingRef.current = false;
         };
 
         api.on("select", handleSelect);
 
+        // Start autoplay when API is ready and carousel is visible
+        startAutoPlay();
+
         return () => {
+            stopAutoPlay();
             api.off("select", handleSelect);
         };
-    }, [api]);
+    }, [api, startAutoPlay, stopAutoPlay, isAutoPlaying, pauseAutoPlayTemporarily, isCarouselVisible]);
+
+    // Handle mouse enter/leave for pausing autoplay (only when carousel is visible)
+    useEffect(() => {
+        if (!isCarouselVisible) return;
+        
+        const container = containerRef.current;
+        if (!container) return;
+
+        const handleMouseEnter = () => {
+            setIsAutoPlaying(false);
+            stopAutoPlay();
+        };
+
+        const handleMouseLeave = () => {
+            setIsAutoPlaying(true);
+        };
+
+        container.addEventListener('mouseenter', handleMouseEnter);
+        container.addEventListener('mouseleave', handleMouseLeave);
+
+        return () => {
+            container.removeEventListener('mouseenter', handleMouseEnter);
+            container.removeEventListener('mouseleave', handleMouseLeave);
+        };
+    }, [stopAutoPlay, isCarouselVisible]);
+
+    // Restart autoplay when isAutoPlaying changes to true (only when carousel is visible)
+    useEffect(() => {
+        if (!isCarouselVisible) {
+            stopAutoPlay();
+            return;
+        }
+
+        if (isAutoPlaying) {
+            startAutoPlay();
+        } else {
+            stopAutoPlay();
+        }
+    }, [isAutoPlaying, startAutoPlay, stopAutoPlay, isCarouselVisible]);
+
+    // Cleanup on unmount
+    useEffect(() => {
+        return () => {
+            stopAutoPlay();
+        };
+    }, [stopAutoPlay]);
 
     return (
         <section data-aos={animationFadeRightType} data-aos-duration={animationDuration} data-aos-delay={animationDelay}>
@@ -75,14 +174,19 @@ export default function SectionTecExperiences() {
                         ))
                     }
                 </div>
-                <div className=" lg:hidden xl:hidden 2xl:hidden flex flex-col items-center gap-3">
-                    <Carousel setApi={setApi} className="w-60">
+                <div ref={containerRef} className="lg:hidden xl:hidden 2xl:hidden flex flex-col items-center gap-3">
+                    <Carousel 
+                        setApi={setApi} 
+                        className="w-60"
+                        opts={{
+                            align: "center",
+                            loop: true,
+                        }}
+                    >
                         <CarouselContent className="">
                             {
                                 items.map((item, index) => (
-                                    <CarouselItem key={index} className="flex flex-col items-center justify-center" onChange={() => {
-                                        setCurrentItem(index);
-                                    }}>
+                                    <CarouselItem key={index} className="flex flex-col items-center justify-center">
                                         <ItemTecSolution
                                             title={item.title}
                                             description={item.description}
@@ -98,9 +202,22 @@ export default function SectionTecExperiences() {
                     <div className="flex gap-1">
                         {
                             items.map((item, index) => (
-                                currentItem == index ? 
-                                <TbCircleFilled key={index} className="size-2 text-white" /> : 
-                                <TbCircle key={index} className="size-2 text-white" />
+                                <button
+                                    key={index}
+                                    className={`transition-all duration-300 ${
+                                        currentItem === index ? 'scale-125' : 'hover:scale-110'
+                                    }`}
+                                    onClick={() => {
+                                        api?.scrollTo(index);
+                                        pauseAutoPlayTemporarily(3000);
+                                    }}
+                                    aria-label={`Ir para item ${index + 1}`}
+                                >
+                                    {currentItem === index ? 
+                                        <TbCircleFilled className="size-2 text-white" /> : 
+                                        <TbCircle className="size-2 text-white" />
+                                    }
+                                </button>
                             ))
                         }
                     </div>
