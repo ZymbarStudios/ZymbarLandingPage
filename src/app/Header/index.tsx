@@ -1,26 +1,9 @@
 "use client";
 import Image from "next/image";
 import { PrimaryButton } from "../../components/Buttons/primaryButton";
-import { GridContainer } from "../../components/GridContainer";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useLayoutEffect } from "react";
-import { TbMenu2 } from "react-icons/tb";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuGroup,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuPortal,
-    DropdownMenuSeparator,
-    DropdownMenuShortcut,
-    DropdownMenuSub,
-    DropdownMenuSubContent,
-    DropdownMenuSubTrigger,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Button } from "@/components/ui/button";
 
 interface HeaderProps {
     onClick: () => void;

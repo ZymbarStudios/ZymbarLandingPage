@@ -11,11 +11,12 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 interface FooterProps {
-    footerRef: React.RefObject<HTMLDivElement | null>;
+    mobileFooterRef: React.RefObject<HTMLDivElement | null>;
+    desktopFooterRef: React.RefObject<HTMLDivElement | null>;
 }
 
 
-export default function Footer({ footerRef }: FooterProps) {
+export default function Footer({ mobileFooterRef, desktopFooterRef }: FooterProps) {
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -72,26 +73,28 @@ export default function Footer({ footerRef }: FooterProps) {
                 className="lg:hidden xl:hidden 2xl:hidden flex flex-col justify-center gap-6 rounded-t-md bg-black-2 text-white p-10 md:p-20" data-aos="fade-up"
                 data-aos-duration="500"
                 data-aos-delay="200"
-                ref={footerRef}
+                ref={mobileFooterRef}
             >
                 <h1 className="josefinSans text-2xl font-bold">
                     Entre em contato! Te respondemos em até 48 horas.
                 </h1>
-                <form className="flex flex-col items-start gap-4" onSubmit={handleEmail}>
-                    <Input
-                        label="Nome"
-                        placeholder="Insira seu nome ou da sua empresa"
-                        type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                    />
-                    <Input
-                        label="Email"
-                        placeholder="Seu endereço de e-mail"
-                        type="text"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
+                <form className="flex flex-col items-start gap-4 mt-6" onSubmit={handleEmail}>
+                    <div className="flex flex-col justify-between gap-10 w-full">
+                        <Input
+                            label="Nome"
+                            placeholder="Insira seu nome ou da sua empresa"
+                            type="text"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                        />
+                        <Input
+                            label="Email"
+                            placeholder="Seu endereço de e-mail"
+                            type="text"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                    </div>
                     <TextArea
                         label="Descrição"
                         placeholder="Descreva sua demanda"
@@ -113,7 +116,7 @@ export default function Footer({ footerRef }: FooterProps) {
                 className=" hidden lg:flex xl:flex 2xl:flex flex-row justify-around bg-black-2 text-white p-20" data-aos="fade-up"
                 data-aos-duration="500"
                 data-aos-delay="200"
-                ref={footerRef}
+                ref={desktopFooterRef}
             >
                 <LoadingModal isLoading={isLoading} />
                 {

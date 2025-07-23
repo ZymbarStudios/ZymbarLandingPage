@@ -3,7 +3,7 @@ import Image from "next/image";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useLayoutEffect } from "react";
-import { animationDelay, animationDuration, animationFadeRightType } from "@/utils";
+import { animationDelay, animationDuration, animationFadeRightType } from "@/lib/utils";
 
 export default function SectionPartners() {
 
